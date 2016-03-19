@@ -3,9 +3,12 @@
 var _ = require('lodash');
 var Event = require('./event.model');
 var esendex = require('esendex')({
-  username: "johnbradshaw1991@hotmail.com",
-  password: "e94sD3GaKQu5"
+  username: 'johnbradshaw1991@hotmail.com',
+  password: 'e94sD3GaKQu5'
 });
+
+var pusher = require('../../config/pusher');
+var auth = require('../../config/auth0');
 
 // Get list of events
 exports.index = function(req, res) {
@@ -26,21 +29,23 @@ exports.show = function(req, res) {
 
 // Creates a new event in the DB.
 exports.create = function(req, res) {
+  //console.log(auth);
   Event.create(req.body, function(err, event) {
     if(err) { return handleError(res, err); }
 
     var messages = {
-        accountreference: "EX0207594",
+        accountreference: 'EX0207594',
         message: [{
-          to: "447863961817",
-          body: "We are totally winning."
+          to: '447863961817',
+          body: 'We are totally winning.'
       }]
     };
 
-    esendex.messages.send(messages, function (err, response) {
-      if (err) return console.log('error: ', err);
-      console.dir(response);
-    });
+    // esendex.messages.send(messages, function (err, response) {
+    //   if (err) return console.log('error: ', err);
+    //
+    //   console.dir(response);
+    // });
 
     return res.status(201).json(event);
   });
