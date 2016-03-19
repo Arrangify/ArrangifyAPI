@@ -11,7 +11,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var config = require('./config/environment');
 var jwt = require('express-jwt');
-
+var pusher = require('./config/pusher');
 // Connect to database
 mongoose.connect(config.mongo.uri, config.mongo.options);
 mongoose.connection.on('error', function(err) {
@@ -38,6 +38,9 @@ require('./routes')(app);
 
 // Start server
 server.listen(config.port, config.ip, function () {
+	pusher.trigger('test_channel', 'started', {
+		"message": 'Express server listening on '+config.port+', in '+app.get('env')+' mode'
+	});
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
 });
 
