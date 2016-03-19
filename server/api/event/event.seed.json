@@ -1,12 +1,16 @@
 [
 	{
-		"name": "the name",
-  		"info": "description",
-  		"active": true
-	},
-	{
-		"name": "the second name",
-  		"info": "description #2",
-  		"active": true
+		"name":"Test Event 4",
+		    "createdOn":"2016-03-19",
+		    "url":"test-event",
+		    "invitees":[
+		        {
+		            "name":"John Bradshaw",
+		            "email":"johnbradshaw1991@hotmail.com",
+		            "phone":"07863961817",
+		            "dates":["2017-01-01"]
+		        }
+		    ],
+		    "dates":["2017-01-01","2017-01-01","2017-01-01","2017-01-01"]
 	}
 ]

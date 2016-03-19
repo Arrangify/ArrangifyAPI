@@ -6,6 +6,17 @@ var mongoose = require('mongoose'),
 var EventSchema = new Schema({
   name: String,
   info: String,
+  createdOn: Date,
+  url: String,
+  invitees:[
+    {
+      name: String,
+      email: String,
+      phone: Number,
+      dates:{type:Array, "default":[]}
+    }
+  ],
+  dates:{type:Array, "default":[]},
   active: Boolean
 });
 
