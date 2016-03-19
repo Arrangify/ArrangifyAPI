@@ -2,6 +2,10 @@
 
 var _ = require('lodash');
 var Event = require('./event.model');
+var esendex = require('esendex')({
+  username: "johnbradshaw1991@hotmail.com",
+  password: "e94sD3GaKQu5"
+});
 
 // Get list of events
 exports.index = function(req, res) {
@@ -24,6 +28,20 @@ exports.show = function(req, res) {
 exports.create = function(req, res) {
   Event.create(req.body, function(err, event) {
     if(err) { return handleError(res, err); }
+
+    var messages = {
+        accountreference: "EX0207594",
+        message: [{
+          to: "07817791589",
+          body: "We are totally winning."
+      }]
+    };
+
+    esendex.messages.send(messages, function (err, response) {
+      if (err) return console.log('error: ', err);
+      console.dir(response);
+    });
+
     return res.status(201).json(event);
   });
 };
