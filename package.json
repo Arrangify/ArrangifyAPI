@@ -1,10 +1,10 @@
 {
-  "name": "ArrangifyAPI",
+  "name": "menstack",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "watch": "nodemon ./bin/www"
+    "start": "node ./server/app.js",
+    "watch": "nodemon ./server/app.js"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -15,6 +15,7 @@
     "jade": "~1.11.0",
     "jsonwebtoken": "^5.7.0",
     "mongodb": "^1.4.40",
+    "mongoose": "^4.4.8",
     "monk": "^1.0.1",
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0"
