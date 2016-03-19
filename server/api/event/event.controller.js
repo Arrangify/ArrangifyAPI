@@ -32,7 +32,7 @@ exports.create = function(req, res) {
     var messages = {
         accountreference: "EX0207594",
         message: [{
-          to: "07817791589",
+          to: "447863961817",
           body: "We are totally winning."
       }]
     };
