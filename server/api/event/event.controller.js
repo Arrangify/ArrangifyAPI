@@ -8,6 +8,7 @@ var auth = require('../../config/auth0');
 
 // Get list of events
 exports.index = function(req, res) {
+  console.log(req.user);
   Event.find(function (err, events) {
     if(err) { return handleError(res, err); }
     return res.status(200).json(events);
