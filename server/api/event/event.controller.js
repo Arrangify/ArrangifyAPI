@@ -2,11 +2,7 @@
 
 var _ = require('lodash');
 var Event = require('./event.model');
-var esendex = require('esendex')({
-  username: 'johnbradshaw1991@hotmail.com',
-  password: 'e94sD3GaKQu5'
-});
-
+var esendex = require('../../config/esendex');
 var pusher = require('../../config/pusher');
 var auth = require('../../config/auth0');
 
@@ -34,18 +30,21 @@ exports.create = function(req, res) {
     if(err) { return handleError(res, err); }
 
     var messages = {
-        accountreference: 'EX0207594',
-        message: [{
-          to: '447863961817',
-          body: 'We are totally winning.'
-      }]
+        accountreference: esendex.accountReference,
+        message: []
     };
 
-    // esendex.messages.send(messages, function (err, response) {
-    //   if (err) return console.log('error: ', err);
-    //
-    //   console.dir(response);
-    // });
+    for (var i = 0; i < req.body.invitees.length; i++) {
+        messages.message.push({
+          to: '447863961817',
+          body: 'We are totally winning.'
+      });
+    }
+
+    esendex.messages.send(messages, function (err, response) {
+      if (err) return console.log('error: ', err);
+      console.dir(response);
+    });
 
     return res.status(201).json(event);
   });
