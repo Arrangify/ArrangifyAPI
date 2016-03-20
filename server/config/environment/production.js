@@ -18,6 +18,6 @@ module.exports = {
     uri:    process.env.MONGOLAB_URI ||
             process.env.MONGOHQ_URL ||
             process.env.OPENSHIFT_MONGODB_DB_URL+process.env.OPENSHIFT_APP_NAME ||
-            'mongodb://localhost/menstack'
+            'mongodb://mongo-b7ead4e3-1.bee8a36f.cont.dockerapp.io:32768'
   }
 };
