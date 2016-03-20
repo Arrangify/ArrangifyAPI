@@ -5,11 +5,12 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Install app dependencies
-COPY package.json /usr/src/app/
-RUN npm install -v
+#COPY package.json /usr/src/app/
 
 # Bundle app source
 COPY . /usr/src/app
 
+RUN npm install -v
+
 EXPOSE 9000
-CMD [ "npm", "start" ]
+CMD [ "node", "/usr/src/app/server/app.js" ]
