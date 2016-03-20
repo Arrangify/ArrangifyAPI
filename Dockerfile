@@ -10,7 +10,7 @@ WORKDIR /usr/src/app
 # Bundle app source
 COPY . /usr/src/app
 
-RUN npm install -v
+RUN npm install
 
 EXPOSE 9000
 CMD [ "npm", "start" ]
