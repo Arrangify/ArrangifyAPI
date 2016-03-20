@@ -1,7 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
-// var dateFormat = require('dateformat');
+var dateFormat = require('dateformat');
 var Event = require('./event.model');
 var esendex = require('../../config/esendex');
 var pusher = require('../../config/pusher');
@@ -9,7 +9,7 @@ var auth = require('../../config/auth0');
 
 // Get list of events
 exports.index = function(req, res) {
-  console.log('Get events for ',req.user.sub);
+  console.log('Get events for ',req.user.name);
   Event.find({sub:req.user.sub},function (err, events) {
     if(err) { return handleError(res, err); }
 
@@ -45,20 +45,24 @@ exports.create = function(req, res) {
   Event.create(req.body, function(err, event) {
     if(err) { return handleError(res, err); }
 
-    var dates = {
-
-    }
-
     var messages = {
         accountreference: esendex.accountReference,
         message: []
     };
 
     for (var i = 0; i < req.body.invitees.length; i++) {
+        var messageBody = 'Hi '+req.body.invitees[i].name+'.\r\n'
+            + 'You have been invited to ' + req.body.name + ' by '+req.user.name+'.\r\n\r\n'
+            + 'Proposed Dates:\r\n'
+
+        req.body.dates.forEach(function(date,idx,arr){
+            messageBody = messageBody + (idx+1).toString() + ") " + dateFormat(new Date(date),'dd mmm yyyy') +'\r\n'
+        });
+
+        messageBody += "\r\nPlease reply to this message with your availability:\r\n e.g 2 3"
         messages.message.push({
           to: req.body.invitees[i].phone,
-          body: 'You have been invited to ' + req.body.name + '.\r\n' /
-                'PS. We are totally winning.'
+          body: messageBody
       });
     }
 

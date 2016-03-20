@@ -16,7 +16,7 @@
     <script>
       var lock = new Auth0Lock('aTXYBsgnA1yrAUygOY138OilcGObKtCV', 'arrangify.eu.auth0.com');
       document.getElementById('btn-login').addEventListener('click', function() {
-        lock.show({ authParams: { scope: 'openid' } });
+        lock.show({ authParams: { scope: 'openid, profile' } });
       });
 
       var hash = lock.parseHash(window.location.hash);
