@@ -7,10 +7,10 @@ var router = express.Router();
 var app = express();
 
 router.get('/',auth, controller.index);
-router.get('/:id', controller.show);
+router.get('/:id',auth, controller.show);
 router.post('/',auth, controller.create);
-router.put('/:id', controller.update);
-router.patch('/:id', controller.update);
-router.delete('/:id', controller.destroy);
+router.put('/:id',auth, controller.update);
+router.patch('/:id',auth, controller.update);
+router.delete('/:id',auth, controller.destroy);
 
 module.exports = router;
