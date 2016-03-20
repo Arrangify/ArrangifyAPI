@@ -13,6 +13,7 @@ var cookieParser = require('cookie-parser');
 var errorHandler = require('errorhandler');
 var path = require('path');
 var config = require('./environment');
+var xmlparser = require('express-xml-bodyparser');
 
 module.exports = function(app) {
   var env = app.get('env');
@@ -22,7 +23,7 @@ module.exports = function(app) {
   app.use(bodyParser.json());
   app.use(methodOverride());
   app.use(cookieParser());
-  
+  app.use(xmlparser());
   if ('production' === env) {
     app.use(morgan('dev'));
   }

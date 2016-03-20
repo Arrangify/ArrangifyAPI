@@ -17,6 +17,7 @@
     "esendex": "^0.1.8",
     "express": "~4.13.1",
     "express-jwt": "^3.3.0",
+    "express-xml-bodyparser": "^0.3.0",
     "jade": "~1.11.0",
     "jsonwebtoken": "^5.7.0",
     "method-override": "^2.3.5",
