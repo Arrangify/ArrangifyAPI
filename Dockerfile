@@ -13,4 +13,4 @@ COPY . /usr/src/app
 RUN npm install -v
 
 EXPOSE 9000
-CMD [ "node", "/usr/src/app/server/app.js" ]
+CMD [ "npm", "start" ]

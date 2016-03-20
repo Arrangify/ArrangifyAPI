@@ -1,3 +1,11 @@
 language: node_js
 node_js:
   - "5"
+
+services:
+  - docker
+
+before_install:
+  - docker build -t mortondev/arrangify .
+  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker push mortondev/arrangify
