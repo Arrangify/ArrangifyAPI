@@ -14,7 +14,7 @@ exports.index = function(req, res) {
 
     if(events.length == 0)
     {
-      Event.find(function (err, events) {
+      Event.find({sub:req.user.sub},function (err, events) {
         if(err) { return handleError(res, err); }
         if(!events) { return res.status(404).send('Not Found'); }
         return res.json(events);
