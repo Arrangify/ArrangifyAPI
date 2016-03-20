@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
+// var dateFormat = require('dateformat');
 var Event = require('./event.model');
 var esendex = require('../../config/esendex');
 var pusher = require('../../config/pusher');
@@ -29,6 +30,10 @@ exports.create = function(req, res) {
   Event.create(req.body, function(err, event) {
     if(err) { return handleError(res, err); }
 
+    var dates = {
+
+    }
+
     var messages = {
         accountreference: esendex.accountReference,
         message: []
@@ -36,11 +41,13 @@ exports.create = function(req, res) {
 
     for (var i = 0; i < req.body.invitees.length; i++) {
         messages.message.push({
-          to: '447863961817',
-          body: 'We are totally winning.'
+          to: req.body.invitees[i].phone,
+          body: 'You have been invited to ' + req.body.name + '.\r\n' /
+                'PS. We are totally winning.'
       });
     }
 
+    console.log(messages);
     esendex.messages.send(messages, function (err, response) {
       if (err) return console.log('error: ', err);
       console.dir(response);
