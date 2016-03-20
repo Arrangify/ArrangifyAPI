@@ -11,7 +11,7 @@ var Event = require('../api/event/event.model');
 // Insert seed data below
 var eventSeed = require('../api/event/event.seed.json');
 
-// Insert seed inserts below
+//Insert seed inserts below
 Event.find({}).remove(function() {
 	Event.create(eventSeed);
 });

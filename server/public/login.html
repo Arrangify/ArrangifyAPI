@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>title</title>
+
+      <script src="//cdn.auth0.com/js/lock-8.2.min.js"></script>
+
+    <!-- Setting the right viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  </head>
+  <body>
+    <input id="btn-login" class="btn-login" type="submit" />
+    <textarea id="token"></textarea>
+    <p>Welcome: <span id="name"></span></p>
+    <script>
+      var lock = new Auth0Lock('aTXYBsgnA1yrAUygOY138OilcGObKtCV', 'arrangify.eu.auth0.com');
+      document.getElementById('btn-login').addEventListener('click', function() {
+        lock.show({ authParams: { scope: 'openid' } });
+      });
+
+      var hash = lock.parseHash(window.location.hash);
+      if (hash) {
+        if (hash.error) {
+          console.log("There was an error logging in", hash.error);
+          alert('There was an error: ' + hash.error + '\n' + hash.error_description);
+        } else {
+          //save the token in the session:
+          localStorage.setItem('id_token', hash.id_token);
+        }
+      }
+      var id_token = localStorage.getItem('id_token');
+      if (id_token) {
+        lock.getProfile(id_token, function (err, profile) {
+          if (err) {
+            return alert('There was an error geting the profile: ' + err.message);
+          }
+          document.getElementById('name').textContent = profile.name;
+          document.getElementById('token').value = id_token;
+        });
+      }
+    </script>
+  </body>
+</html>

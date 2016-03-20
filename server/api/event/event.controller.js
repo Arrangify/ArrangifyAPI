@@ -9,11 +9,25 @@ var auth = require('../../config/auth0');
 
 // Get list of events
 exports.index = function(req, res) {
-  Event.find(function (err, events) {
+  console.log('Get events for ',req.user.sub);
+  Event.find({sub:req.user.sub},function (err, events) {
     if(err) { return handleError(res, err); }
+
+    if(events.length == 0)
+    {
+      Event.find({sub:req.user.sub},function (err, events) {
+        if(err) { return handleError(res, err); }
+        if(!events) { return res.status(404).send('Not Found'); }
+        return res.json(events);
+    });
+  }
+  else {
     return res.status(200).json(events);
+  }
+
   });
 };
+
 
 // Get a single event
 exports.show = function(req, res) {
@@ -27,6 +41,7 @@ exports.show = function(req, res) {
 // Creates a new event in the DB.
 exports.create = function(req, res) {
   //console.log(auth);
+  req.body.sub = req.user.sub;
   Event.create(req.body, function(err, event) {
     if(err) { return handleError(res, err); }
 

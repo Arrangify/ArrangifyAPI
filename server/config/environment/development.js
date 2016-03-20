@@ -8,5 +8,5 @@ module.exports = {
     uri: 'mongodb://mongo-b7ead4e3-1.bee8a36f.cont.dockerapp.io:32768'
   },
 
-  seedDB: true
+  seedDB: false
 };
